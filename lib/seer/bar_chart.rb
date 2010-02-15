@@ -7,22 +7,29 @@ module Seer
   # 
   # In your view:
   #
+  #   <div id="chart" class="chart"></div>
+  #
   #   <%= visualize(
   #         @widgets, 
   #         :as => :bar_chart,
+  #         :series => {:label => 'name', :data => 'quantity'},
   #         :chart_options => {
-  #           :height => '300px',
-  #           :width => '350px',
-  #           :is_3_d => true,
-  #           :colors => [ {color:'FF0000', darker:'680000'}, {color:'cyan', darker:'deepskyblue'} ]
-  #         },
-  #         :label_method => 'name',
-  #         :x_axis => { :label => 'Date',     :method => 'updated_at' },
-  #         :y_axis => { :label => 'Searches', :method => 'searches' }
-  #        )
+  #           :height => 300,
+  #           :width => 200 * @widgets.size,
+  #           :is_3_d => false,
+  #           :legend => 'none',
+  #           :colors => "#990000",
+  #           :title => "Widget Quantities",
+  #           :title_x => 'Quantity',
+  #           :title_y => 'Widgets'
+  #         }
+  #       )
   #    -%>
   #   
-  #   <div id="chart" class="chart"></div>
+  # Colors are treated differently for 2d and 3d graphs. If you set is_3_d to true, set the
+  # graph colors like this:
+  #
+  #           :colors   => "[{color:'#990000', darker:'#660000'}]",
   #
   class BarChart
   
@@ -32,7 +39,7 @@ module Seer
     attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :colors, :data_table, :enable_tooltip, :focus_border_color, :height, :is_3_d, :is_stacked, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :log_scale, :max, :min, :reverse_axis, :show_categories, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width
     
     # Graph data
-    attr_accessor :label_method, :x_axis_label, :x_axis_method, :y_axis_label, :y_axis_method
+    attr_accessor :label_method, :data_method
     
     def initialize(args={})
 
@@ -57,7 +64,7 @@ module Seer
       data.each_with_index do |datum, column|
         @data_table << [
           "            data.setValue(#{column}, 0,'#{datum.send(label_method)}');\r",
-          "            data.setValue(#{column}, 1, #{datum.send(y_axis_method)});\r"
+          "            data.setValue(#{column}, 1, #{datum.send(data_method)});\r"
         ]
       end
     end
@@ -67,11 +74,11 @@ module Seer
     end
 
     def nonstring_options
-      [:axis_font_size, :colors, :enable_tooltip, :height, :is_3_d, :is_stacked, :legend_font_size, :log_scale, :max, :min, :reverse_axis, :show_categories, :title_font_size, :tooltip_font_size, :tooltip_width, :width]
+      [:axis_font_size, :colors, :enable_tooltip, :is_3_d, :is_stacked, :legend_font_size, :log_scale, :max, :min, :reverse_axis, :show_categories, :title_font_size, :tooltip_font_size, :tooltip_width]
     end
     
     def string_options
-      [:axis_color, :axis_background_color, :background_color, :border_color, :focus_border_color, :legend, :legend_background_color, :legend_text_color, :title, :title_x, :title_y, :title_color]
+      [:axis_color, :axis_background_color, :background_color, :border_color, :focus_border_color,  :height, :legend, :legend_background_color, :legend_text_color, :title, :title_x, :title_y, :title_color, :width]
     end
     
     def to_js
@@ -82,7 +89,7 @@ module Seer
           google.setOnLoadCallback(drawChart);
           function drawChart() {
             var data = new google.visualization.DataTable();
-#{data_columns(x_axis_label, y_axis_label)}
+#{data_columns(label_method, data_method)}
 #{data_table}
             var options = {};
 #{options}
@@ -94,15 +101,10 @@ module Seer
       }
     end
       
-    # ====================================== Class Methods =========================================
-    
     def self.render(data, args)
       graph = Seer::BarChart.new(
-        :label_method   => args[:label_method],
-        :x_axis_label   => args[:x_axis][:label],
-        :x_axis_method  => args[:x_axis][:method],
-        :y_axis_label   => args[:y_axis][:label],
-        :y_axis_method  => args[:y_axis][:method],
+        :label_method  => args[:series][:label],
+        :data_method  => args[:series][:data],
         :chart_options  => args[:chart_options]
       )
       graph.data_table = data

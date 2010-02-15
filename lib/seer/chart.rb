@@ -10,13 +10,17 @@ module Seer
     end
     
     def formatted_colors
-      "[#{@colors.map{|color| "'#{color.gsub(/\#/,'')}'"} * ','}]"
+      if @colors.include?('darker')
+        @colors
+      else
+        "[#{@colors.map{|color| "'#{color.gsub(/\#/,'')}'"} * ','}]"
+      end
     end
     
     def data_columns(object_label, value_label)
       _data_columns =  "            data.addRows(#{data_table.size});\r"
-      _data_columns << "            data.addColumn('string', '#{y_axis_label}');\r"
-      _data_columns << "            data.addColumn('number', '#{x_axis_label}');\r"
+      _data_columns << "            data.addColumn('string', '#{label_method}');\r"
+      _data_columns << "            data.addColumn('number', '#{data_method}');\r"
       _data_columns
     end
     

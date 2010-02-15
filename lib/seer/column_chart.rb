@@ -7,23 +7,31 @@ module Seer
   # 
   # In your view:
   #
+  #   <div id="chart" class="chart"></div>
+  #
   #   <%= visualize(
   #         @widgets, 
   #         :as => :column_chart,
+  #         :series => {:label => 'name', :data => 'quantity'},
   #         :chart_options => {
-  #           :height => '300px',
-  #           :width => '350px',
-  #           :is_3_d => true,
-  #           :colors => [ {color:'FF0000', darker:'680000'}, {color:'cyan', darker:'deepskyblue'} ]
-  #         },
-  #         :label_method => 'name',
-  #         :x_axis => { :label => 'Date',     :method => 'updated_at' },
-  #         :y_axis => { :label => 'Searches', :method => 'searches' }
-  #        )
+  #           :height   => 300,
+  #           :width    => 300,
+  #           :is_3_d   => true,
+  #           :legend   => 'none',
+  #           :colors   => "[{color:'#990000', darker:'#660000'}]",
+  #           :title    => "Widget Quantities",
+  #           :title_x  => 'Widgets',
+  #           :title_y  => 'Quantities'
+  #         }
+  #       )
   #    -%>
   #   
-  #   <div id="chart" class="chart"></div>
+  # Colors are treated differently for 2d and 3d graphs. If you set is_3_d to false, set the
+  # graph color like this:
   #
+  #           :colors   => "#990000"
+  #
+  
   class ColumnChart
   
     include Seer::Chart
@@ -32,7 +40,7 @@ module Seer
     attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :colors, :data_table, :enable_tooltip, :focus_border_color, :height, :is_3_d, :is_stacked, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :log_scale, :max, :min, :reverse_axis, :show_categories, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width
     
     # Graph data
-    attr_accessor :label_method, :x_axis_label, :x_axis_method, :y_axis_label, :y_axis_method
+    attr_accessor :label_method, :data_method
     
     def initialize(args={})
 
@@ -57,7 +65,7 @@ module Seer
       data.each_with_index do |datum, column|
         @data_table << [
           "            data.setValue(#{column}, 0,'#{datum.send(label_method)}');\r",
-          "            data.setValue(#{column}, 1, #{datum.send(y_axis_method)});\r"
+          "            data.setValue(#{column}, 1, #{datum.send(data_method)});\r"
         ]
       end
     end
@@ -82,7 +90,7 @@ module Seer
           google.setOnLoadCallback(drawChart);
           function drawChart() {
             var data = new google.visualization.DataTable();
-#{data_columns(x_axis_label, y_axis_label)}
+#{data_columns(label_method, data_method)}
 #{data_table}
             var options = {};
 #{options}
@@ -94,15 +102,10 @@ module Seer
       }
     end
       
-    # ====================================== Class Methods =========================================
-    
     def self.render(data, args)
       graph = Seer::ColumnChart.new(
-        :label_method   => args[:label_method],
-        :x_axis_label   => args[:x_axis][:label],
-        :x_axis_method  => args[:x_axis][:method],
-        :y_axis_label   => args[:y_axis][:label],
-        :y_axis_method  => args[:y_axis][:method],
+        :label_method   => args[:series][:label],
+        :data_method    => args[:series][:data],
         :chart_options  => args[:chart_options]
       )
       graph.data_table = data

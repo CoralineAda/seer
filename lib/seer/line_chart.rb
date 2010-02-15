@@ -32,7 +32,7 @@ module Seer
     attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :colors, :data_table, :enable_tooltip, :focus_border_color, :height, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :line_size, :log_scale, :max, :min, :point_size, :reverse_axis, :show_categories, :smooth_line, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :number, :tooltip_width, :width
     
     # Graph data
-    attr_accessor :label_method, :x_axis_label, :x_axis_method, :y_axis_label, :y_axis_method
+    attr_accessor :series_label, :data_label, :data, :data_method, :data_series
     
     def initialize(args={})
 
@@ -52,12 +52,24 @@ module Seer
       
     end
   
+    def data_columns
+      _data_columns =  "            data.addRows(#{data_series.first.map{|d| d.send(data_label)}.uniq.size});\r"
+      _data_columns << "            data.addColumn('string', 'Date');\r"
+      data.each do |datum|
+        _data_columns << "            data.addColumn('number', '#{datum.send(series_label)}');\r"
+      end
+      _data_columns
+    end
+    
     def data_table=(data)
-      data.each_with_index do |datum, column|
-        @data_table << [
-          "            data.setValue(#{column}, 0,'#{datum.send(label_method)}');\r",
-          "            data.setValue(#{column}, 1, #{datum.send(y_axis_method)});\r"
-        ]
+      _rows = data_series.first.map{|d| d.send(data_label)}.uniq
+      _rows.each_with_index do |r,i|
+        @data_table << "            data.setCell(#{i}, 0,'#{r}');\r"
+      end
+      data_series.each_with_index do |column,i|
+        column.each_with_index do |c,j|
+          @data_table << "data.setCell(#{j},#{i+1},#{c.send(data_method)});\r"
+        end
       end
     end
 
@@ -69,7 +81,7 @@ module Seer
       [ :axis_color, :axis_background_color, :background_color, :border_color, :focus_border_color, :legend, :legend_background_color, :legend_text_color, :title, :title_x, :title_y, :title_color ]
     end
     
-    def to_js
+    def to_js(data)
 
       %{
         <script type="text/javascript">
@@ -77,7 +89,7 @@ module Seer
           google.setOnLoadCallback(drawChart);
           function drawChart() {
             var data = new google.visualization.DataTable();
-#{data_columns(x_axis_label, y_axis_label)}
+#{data_columns}
 #{data_table}
             var options = {};
 #{options}
@@ -93,15 +105,15 @@ module Seer
     
     def self.render(data, args)
       graph = Seer::LineChart.new(
-        :label_method   => args[:label_method],
-        :x_axis_label   => args[:x_axis][:label],
-        :x_axis_method  => args[:x_axis][:method],
-        :y_axis_label   => args[:y_axis][:label],
-        :y_axis_method  => args[:y_axis][:method],
+        :data => data,
+        :series_label   => args[:series][:series_label],
+        :data_series    => args[:series][:data_series],
+        :data_label     => args[:series][:data_label],
+        :data_method    => args[:series][:data_method],
         :chart_options  => args[:chart_options]
       )
       graph.data_table = data
-      graph.to_js
+      graph.to_js(data)
     end
     
   end  
