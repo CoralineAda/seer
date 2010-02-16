@@ -6,7 +6,7 @@ Seer is a lightweight, semantically rich wrapper for the Google Visualization AP
 
 Add the following to the head of the page that will display a chart, or add it to your layout file:
 
-  <%= init_visualization -%>
+  <%= Seer::init_visualization -%>
 
 Gather the data you want to visualize in an instance variable in your controller, then use the visualize method to insert the appropriate chart in your view.
 
@@ -22,7 +22,7 @@ In your view:
 
   <div id="chart" class="chart"></div>
 
-  <%= visualize(
+  <%= Seer::visualize(
         @widgets, 
         :as => :bar_chart,
         :in_element => 'chart',

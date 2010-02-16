@@ -11,7 +11,7 @@ module Seer
   #
   #   <div id="chart" class="chart"></div>
   #
-  #   <%= visualize(
+  #   <%= Seer::visualize(
   #         @data, 
   #         :as => :pie_chart,
   #         :series => {:series_label => 'name', :data_method => 'quantity'},

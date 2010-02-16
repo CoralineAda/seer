@@ -13,7 +13,7 @@ module Seer
   #
   #   <div id="chart" class="chart"></div>
   #
-  #   <%= visualize(
+  #   <%= Seer::visualize(
   #         @data, 
   #         :as => :line_chart,
   #         :in_element => 'chart',

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Seer::Gauge</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Seer::Gauge</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/seer/gauge_rb.html">
+                lib/seer/gauge.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>USAGE</h1>
+<p>
+In your controller:
+</p>
+<pre>
+  @data = Widgets.all # Must be an array, and must respond
+                      # to the data method specified below (in this example, 'quantity')
+</pre>
+<p>
+In your view:
+</p>
+<pre>
+  &lt;div id=&quot;chart&quot; class=&quot;chart&quot;&gt;&lt;/div&gt;
+
+  &lt;%= visualize(
+        @data,
+        :as =&gt; :gauge,
+        :in_element =&gt; 'chart',
+        :series =&gt; {:label =&gt; 'name', :data =&gt; 'quantity'},
+        :chart_options =&gt; {
+          :green_from =&gt; 0,
+          :green_to =&gt; 50,
+          :height =&gt; 300,
+          :max =&gt; 100,
+          :min =&gt; 0,
+          :minor_ticks =&gt; 5,
+          :red_from =&gt; 76,
+          :red_to =&gt; 100,
+          :width =&gt; 600,
+          :yellow_from =&gt; 51,
+          :yellow_to =&gt; 75
+        }
+      )
+   -%&gt;
+</pre>
+<p>
+For details on the chart options, see the Google API docs at <a
+href="http://code.google.com/apis/visualization/documentation/gallery/gauge.html">code.google.com/apis/visualization/documentation/gallery/gauge.html</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Seer::Chart</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data_method</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph data
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data_table</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">green_from</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">green_to</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">height</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">label_method</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph data
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">major_ticks</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">max</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">min</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">minor_ticks</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">red_from</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">red_to</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">width</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">yellow_from</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">yellow_to</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Chart options accessors
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

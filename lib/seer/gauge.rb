@@ -11,7 +11,7 @@ module Seer
   #
   #   <div id="chart" class="chart"></div>
   #   
-  #   <%= visualize(
+  #   <%= Seer::visualize(
   #         @data, 
   #         :as => :gauge,
   #         :in_element => 'chart',

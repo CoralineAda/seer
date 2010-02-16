@@ -11,7 +11,7 @@ module Seer
   #
   #   <div id="chart" class="chart"></div>
   #
-  #   <%= visualize(
+  #   <%= Seer::visualize(
   #         @widgets, 
   #         :as => :bar_chart,
   #         :in_element => 'chart',

@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Seer::LineChart</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Seer::LineChart</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/seer/line_chart_rb.html">
+                lib/seer/line_chart.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>USAGE</h1>
+<p>
+In your controller:
+</p>
+<pre>
+  @data = Widgets.all # Must be an array of objects that respond to the specidied data method
+                      # (In this example, 'quantity'
+
+  @series = @data.map{|w| w.widget_stats} # An array of arrays
+</pre>
+<p>
+In your view:
+</p>
+<pre>
+  &lt;div id=&quot;chart&quot; class=&quot;chart&quot;&gt;&lt;/div&gt;
+
+  &lt;%= visualize(
+        @data,
+        :as =&gt; :line_chart,
+        :in_element =&gt; 'chart',
+        :series =&gt; {
+          :series_label =&gt; 'name',
+          :data_label =&gt; 'date',
+          :data_method =&gt; 'quantity',
+          :data_series =&gt; @series
+        },
+        :chart_options =&gt; {
+          :height =&gt; 300,
+          :width =&gt; 300,
+          :axis_font_size =&gt; 11,
+          :colors =&gt; ['#7e7587','#990000','#009900'],
+          :title =&gt; &quot;Widget Quantities&quot;,
+          :point_size =&gt; 5
+        }
+       )
+   -%&gt;
+</pre>
+<p>
+For details on the chart options, see the Google API docs at <a
+href="http://code.google.com/apis/visualization/documentation/gallery/linechart.html">code.google.com/apis/visualization/documentation/gallery/linechart.html</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name">Seer::Chart</span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">axis_background_color</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">axis_color</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">axis_font_size</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">background_color</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">border_color</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">colors</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph data
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data_label</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph data
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data_method</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph data
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data_series</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph data
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data_table</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">enable_tooltip</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">focus_border_color</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">height</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">legend</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">legend_background_color</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">legend_font_size</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">legend_text_color</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">line_size</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">log_scale</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">max</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">min</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">number</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">point_size</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">reverse_axis</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">series_label</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph data
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">show_categories</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">smooth_line</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">title</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">title_color</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">title_font_size</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">title_x</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">title_y</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">tooltip_font_size</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">tooltip_height</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">tooltip_width</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">width</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph options
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
