@@ -40,10 +40,10 @@ module Seer
     include Seer::Chart
     
     # Chart options accessors
-    attr_accessor :data_table, :green_from, :green_to, :height, :major_ticks, :max, :min, :minor_ticks, :red_from, :red_to, :width, :yellow_from, :yellow_to
+    attr_accessor :green_from, :green_to, :height, :major_ticks, :max, :min, :minor_ticks, :red_from, :red_to, :width, :yellow_from, :yellow_to
     
     # Graph data
-    attr_accessor :label_method, :data_method
+    attr_accessor :data, :data_method, :data_table, :label_method
     
     def initialize(args={})  #:nodoc:
 
@@ -54,20 +54,21 @@ module Seer
       args[:chart_options].each{ |method, arg| self.send("#{method}=",arg) if self.respond_to?(method) }
 
       # Handle defaults      
-      @height ||= args[:chart_options][:height] || '300'
-      @width  ||= args[:chart_options][:width] || '300'
+      @height ||= args[:chart_options][:height] || DEFAULT_HEIGHT
+      @width  ||= args[:chart_options][:width] || DEFAULT_WIDTH
 
       @data_table = []
       
     end
   
-    def data_table=(data)  #:nodoc:
+    def data_table  #:nodoc:
       data.each_with_index do |datum, column|
         @data_table << [
           "            data.setValue(#{column}, 0,'#{datum.send(label_method)}');\r",
           "            data.setValue(#{column}, 1, #{datum.send(data_method)});\r"
         ]
       end
+      @data_table
     end
 
     def is_3_d  #:nodoc:
@@ -90,8 +91,8 @@ module Seer
           google.setOnLoadCallback(drawChart);
           function drawChart() {
             var data = new google.visualization.DataTable();
-#{data_columns(label_method, data_method)}
-#{data_table}
+#{data_columns}
+#{data_table.to_s}
             var options = {};
 #{options}
             var container = document.getElementById('#{self.chart_element}');
@@ -104,12 +105,12 @@ module Seer
       
     def self.render(data, args)  #:nodoc:
       graph = Seer::Gauge.new(
+        :data           => data,
         :label_method   => args[:series][:series_label],
         :data_method    => args[:series][:data_method],
         :chart_options  => args[:chart_options],
         :chart_element  => args[:in_element]
       )
-      graph.data_table = data
       graph.to_js
     end
     

@@ -34,10 +34,10 @@ module Seer
     include Seer::Chart
     
     # Chart options accessors
-    attr_accessor :background_color, :border_color, :colors, :data_table, :enable_tooltip, :focus_border_color, :height, :is_3_d, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :pie_join_angle, :pie_minimal_angle, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width
+    attr_accessor :background_color, :border_color, :enable_tooltip, :focus_border_color, :height, :is_3_d, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :pie_join_angle, :pie_minimal_angle, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width
     
     # Graph data
-    attr_accessor :label_method, :data_method
+    attr_accessor :data, :data_method, :data_table, :label_method
     
     def initialize(args={}) #:nodoc:
 
@@ -49,22 +49,23 @@ module Seer
 
       # Handle defaults      
       @colors ||= args[:chart_options][:colors] || DEFAULT_COLORS
-      @legend ||= args[:chart_options][:legend] || 'bottom'
-      @height ||= args[:chart_options][:height] || '347'
-      @width  ||= args[:chart_options][:width] || '556'
+      @legend ||= args[:chart_options][:legend] || DEFAULT_LEGEND_LOCATION
+      @height ||= args[:chart_options][:height] || DEFAULT_HEIGHT
+      @width  ||= args[:chart_options][:width] || DEFAULT_WIDTH
       @is_3_d ||= args[:chart_options][:is_3_d]
 
       @data_table = []
       
     end
   
-    def data_table=(data) #:nodoc:
+    def data_table #:nodoc:
       data.each_with_index do |datum, column|
         @data_table << [
           "            data.setValue(#{column}, 0,'#{datum.send(label_method)}');\r",
           "            data.setValue(#{column}, 1, #{datum.send(data_method)});\r"
         ]
       end
+      @data_table
     end
 
     def is_3_d #:nodoc:
@@ -87,8 +88,8 @@ module Seer
           google.setOnLoadCallback(drawChart);
           function drawChart() {
             var data = new google.visualization.DataTable();
-#{data_columns(label_method, data_method)}
-#{data_table}
+#{data_columns}
+#{data_table.to_s}
             var options = {};
 #{options}
             var container = document.getElementById('chart');
@@ -101,12 +102,12 @@ module Seer
       
     def self.render(data, args) #:nodoc:
       graph = Seer::PieChart.new(
+        :data           => data,
         :label_method   => args[:series][:series_label],
         :data_method    => args[:series][:data_method],
         :chart_options  => args[:chart_options],
         :chart_element  => args[:in_element]
       )
-      graph.data_table = data
       graph.to_js
     end
     

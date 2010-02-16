@@ -42,7 +42,7 @@ module Seer
     include Seer::Chart
     
     # Graph options
-    attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :colors, :data_table, :enable_tooltip, :focus_border_color, :height, :is_stacked, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :line_size, :log_scale, :max, :min, :point_size, :reverse_axis, :show_categories, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :number, :tooltip_width, :width
+    attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :data_table, :enable_tooltip, :focus_border_color, :height, :is_stacked, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :line_size, :log_scale, :max, :min, :point_size, :reverse_axis, :show_categories, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :number, :tooltip_width, :width
     
     # Graph data
     attr_accessor :series_label, :data_label, :data, :data_method, :data_series
@@ -57,9 +57,9 @@ module Seer
 
       # Handle defaults      
       @colors ||= args[:chart_options][:colors] || DEFAULT_COLORS
-      @legend ||= args[:chart_options][:legend] || 'bottom'
-      @height ||= args[:chart_options][:height] || '347'
-      @width  ||= args[:chart_options][:width] || '556'
+      @legend ||= args[:chart_options][:legend] || DEFAULT_LEGEND_LOCATION
+      @height ||= args[:chart_options][:height] || DEFAULT_HEIGHT
+      @width  ||= args[:chart_options][:width] || DEFAULT_WIDTH
 
       @data_table = []
       
@@ -74,7 +74,7 @@ module Seer
       _data_columns
     end
     
-    def data_table=(data) #:nodoc:
+    def data_table #:nodoc:
       _rows = data_series.first.map{|d| d.send(data_label)}.uniq
       _rows.each_with_index do |r,i|
         @data_table << "            data.setCell(#{i}, 0,'#{r}');\r"
@@ -84,6 +84,7 @@ module Seer
           @data_table << "data.setCell(#{j},#{i+1},#{c.send(data_method)});\r"
         end
       end
+      @data_table
     end
 
     def nonstring_options #:nodoc:
@@ -94,7 +95,7 @@ module Seer
       [ :axis_color, :axis_background_color, :background_color, :border_color, :focus_border_color, :legend, :legend_background_color, :legend_text_color, :title, :title_x, :title_y, :title_color ]
     end
     
-    def to_js(data) #:nodoc:
+    def to_js #:nodoc:
 
       %{
         <script type="text/javascript">
@@ -103,7 +104,7 @@ module Seer
           function drawChart() {
             var data = new google.visualization.DataTable();
 #{data_columns}
-#{data_table}
+#{data_table.to_s}
             var options = {};
 #{options}
             var container = document.getElementById('chart');
@@ -114,8 +115,6 @@ module Seer
       }
     end
       
-    # ====================================== Class Methods =========================================
-    
     def self.render(data, args) #:nodoc:
       graph = Seer::AreaChart.new(
         :data => data,
@@ -126,8 +125,7 @@ module Seer
         :chart_options  => args[:chart_options],
         :chart_element  => args[:in_element]
       )
-      graph.data_table = data
-      graph.to_js(data)
+      graph.to_js
     end
     
   end  
