@@ -29,8 +29,6 @@ Gem::Specification.new do |s|
      "lib/seer/gauge.rb",
      "lib/seer/line_chart.rb",
      "lib/seer/pie_chart.rb",
-     "lib/seer/visualization_helper.rb",
-     "rails/init.rb",
      "spec/seer_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
