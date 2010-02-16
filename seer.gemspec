@@ -39,7 +39,14 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{Seer is a lightweight, semantically rich wrapper for the Google Visualization API.}
   s.test_files = [
-    "spec/seer_spec.rb",
+    "spec/area_chart_spec.rb",
+     "spec/bar_chart_spec.rb",
+     "spec/chart_spec.rb",
+     "spec/column_chart_spec.rb",
+     "spec/gauge_spec.rb",
+     "spec/line_chart_spec.rb",
+     "spec/pie_chart_spec.rb",
+     "spec/seer_spec.rb",
      "spec/spec_helper.rb"
   ]
 
