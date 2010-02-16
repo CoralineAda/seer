@@ -15,7 +15,7 @@ module Seer
   #         @widgets, 
   #         :as => :bar_chart,
   #         :in_element => 'chart',
-  #         :series => {:label => 'name', :data => 'quantity'},
+  #         :series => {:series_label => 'name', :data_method => 'quantity'},
   #         :chart_options => {
   #           :height => 300,
   #           :width => 200 * @widgets.size,
@@ -109,8 +109,8 @@ module Seer
       
     def self.render(data, args) #:nodoc:
       graph = Seer::BarChart.new(
-        :label_method  => args[:series][:label],
-        :data_method  => args[:series][:data],
+        :label_method  => args[:series][:series_label],
+        :data_method  => args[:series][:data_method],
         :chart_options  => args[:chart_options],
         :chart_element  => args[:in_element]
       )

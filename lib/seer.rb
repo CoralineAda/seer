@@ -1,8 +1,17 @@
 module Seer
 
+  require 'seer/chart'
+  require 'seer/area_chart'
+  require 'seer/bar_chart'
+  require 'seer/column_chart'
+  require 'seer/gauge'
+  require 'seer/line_chart'
+  require 'seer/pie_chart'
+  
   VISUALIZERS = [:area_chart, :bar_chart, :column_chart, :gauge, :line_chart, :pie_chart]
   
   def self.valid_hex_number?(val) #:nodoc:
+    return false unless val.is_a?(String) && ! val.empty?
     ! (val =~ /^\#([0-9]|[a-f]|[A-F])+$/).nil? && val.length == 7
   end
 
@@ -15,7 +24,8 @@ module Seer
   end
   
   def self.visualize(data, args={})
-    raise ArgumentError, "Invalid visualizer: #{args[:as]}" unless args[:as] && VISUALIZERS.include?(args[:as])
+    raise ArgumentError, "Seer: Invalid visualizer: #{args[:as]}" unless args[:as] && VISUALIZERS.include?(args[:as])
+    raise ArgumentError, "Seer: No data provided!" unless data && ! data.empty?
     self.send(args[:as], data, args)
   end
 
