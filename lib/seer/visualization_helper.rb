@@ -2,7 +2,7 @@ module Seer
 
   module VisualizationHelper
     
-    VISUALIZERS = [:bar_chart, :column_chart, :geomap, :line_chart, :org_chart]
+    VISUALIZERS = [:bar_chart, :column_chart, :geomap, :line_chart, :pie_chart, :org_chart]
     
     def init_visualization
       %{<script type="text/javascript" src="http://www.google.com/jsapi"></script>      }
@@ -30,7 +30,11 @@ module Seer
     def line_chart(data, args)
       LineChart.render(data, args)
     end
-      
+
+    def pie_chart(data, args)
+      PieChart.render(data, args)
+    end
+    
     def org_chart(data, args)
       OrgChart.render(data, args)
     end

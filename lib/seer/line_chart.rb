@@ -5,24 +5,34 @@ module Seer
   #
   # =USAGE=
   # 
+  # In your controller:
+  #
+  #   @data = Widgets.first # <= Must be an array
+  #   @series = @data.map{|w| w.widget_stats}
+  #
   # In your view:
   #
+  #   <div id="chart" class="chart"></div>
+  #
   #   <%= visualize(
-  #         @widgets, 
-  #         :as => :bar_chart,
-  #         :chart_options => {
-  #           :height => '300px',
-  #           :width => '350px',
-  #           :is_3d => true,
-  #           :colors => [ {color:'FF0000', darker:'680000'}, {color:'cyan', darker:'deepskyblue'} ]
+  #         @data, 
+  #         :as => :line_chart,
+  #         :series => {
+  #           :series_label => 'name',
+  #           :data_label => 'date',
+  #           :data_method => 'quantity',
+  #           :data_series => @series
   #         },
-  #         :label_method => 'name',
-  #         :x_axis => { :label => 'Date',     :method => 'updated_at' },
-  #         :y_axis => { :label => 'Searches', :method => 'searches' }
+  #         :chart_options => { 
+  #           :height => 300,
+  #           :width => 300,
+  #           :axis_font_size => 11,
+  #           :colors => ['#7e7587','#990000','#009900'],
+  #           :title => "Widget Quantities",
+  #           :point_size => 5
+  #         }
   #        )
   #    -%>
-  #   
-  #   <div id="chart" class="chart"></div>
   #
   class LineChart
   
