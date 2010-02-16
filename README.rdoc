@@ -26,13 +26,13 @@ In your view:
         @widgets, 
         :as => :bar_chart,
         :in_element => 'chart',
-        :series => {:label => 'name', :data => 'quantity'},
+        :series => {:series_label => 'name', :data_method => 'quantity'},
         :chart_options => {
           :height => 300,
           :width => 200 * @widgets.size,
           :is_3_d => false,
           :legend => 'none',
-          :colors => "#990000",
+          :colors => ["#990000"],
           :title => "Widget Quantities",
           :title_x => 'Quantity',
           :title_y => 'Widgets'
