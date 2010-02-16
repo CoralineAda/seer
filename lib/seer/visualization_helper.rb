@@ -1,8 +1,8 @@
 module Seer
 
-  module VisualizationHelper
+  module VisualizationHelper #:nodoc:
     
-    VISUALIZERS = [:bar_chart, :column_chart, :geomap, :line_chart, :pie_chart, :org_chart]
+    VISUALIZERS = [:area_chart, :bar_chart, :column_chart, :gauge, :line_chart, :pie_chart]
     
     def init_visualization
       %{<script type="text/javascript" src="http://www.google.com/jsapi"></script>      }
@@ -15,6 +15,10 @@ module Seer
   
     private
     
+    def area_chart(data, args)
+      AreaChart.render(data, args)
+    end
+    
     def bar_chart(data, args)
       BarChart.render(data, args)
     end
@@ -23,8 +27,8 @@ module Seer
       ColumnChart.render(data, args)
     end
     
-    def geomap(data, args)
-      Geomap.render(data, args)
+    def gauge(data, args)
+      Gauge.render(data, args)
     end
 
     def line_chart(data, args)
@@ -33,10 +37,6 @@ module Seer
 
     def pie_chart(data, args)
       PieChart.render(data, args)
-    end
-    
-    def org_chart(data, args)
-      OrgChart.render(data, args)
     end
     
   end

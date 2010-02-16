@@ -5,6 +5,11 @@ module Seer
   #
   # =USAGE=
   # 
+  # In your controller:
+  #
+  #   @data = Widgets.all # Must be an array of objects that respond to the specidied data method 
+  #                       # (In this example, 'quantity'
+  #
   # In your view:
   #
   #   <div id="chart" class="chart"></div>
@@ -12,6 +17,7 @@ module Seer
   #   <%= visualize(
   #         @widgets, 
   #         :as => :column_chart,
+  #         :in_element => 'chart',
   #         :series => {:label => 'name', :data => 'quantity'},
   #         :chart_options => {
   #           :height   => 300,
@@ -31,7 +37,6 @@ module Seer
   #
   #           :colors   => "#990000"
   #
-  
   class PieChart
   
     include Seer::Chart
@@ -103,11 +108,11 @@ module Seer
     end
       
     def self.render(data, args)
-      RAILS_DEFAULT_LOGGER.info "!!! => data.inspect"
       graph = Seer::PieChart.new(
         :label_method   => args[:series][:series_label],
         :data_method    => args[:series][:data_method],
-        :chart_options  => args[:chart_options]
+        :chart_options  => args[:chart_options],
+        :chart_element  => args[:in_element]
       )
       graph.data_table = data
       graph.to_js

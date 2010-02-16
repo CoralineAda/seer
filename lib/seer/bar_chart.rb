@@ -5,6 +5,11 @@ module Seer
   #
   # =USAGE=
   # 
+  # In your controller:
+  #
+  #   @data = Widgets.all # Must be an array, and must respond
+  #                       # to the data method specified below (in this example, 'quantity')
+  #
   # In your view:
   #
   #   <div id="chart" class="chart"></div>
@@ -12,6 +17,7 @@ module Seer
   #   <%= visualize(
   #         @widgets, 
   #         :as => :bar_chart,
+  #         :in_element => 'chart',
   #         :series => {:label => 'name', :data => 'quantity'},
   #         :chart_options => {
   #           :height => 300,
@@ -105,7 +111,8 @@ module Seer
       graph = Seer::BarChart.new(
         :label_method  => args[:series][:label],
         :data_method  => args[:series][:data],
-        :chart_options  => args[:chart_options]
+        :chart_options  => args[:chart_options],
+        :chart_element  => args[:in_element]
       )
       graph.data_table = data
       graph.to_js

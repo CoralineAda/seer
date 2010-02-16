@@ -1,14 +1,14 @@
 module Seer
 
   # For details on the chart options, see the Google API docs at 
-  # http://code.google.com/apis/visualization/documentation/gallery/linechart.html
+  # http://code.google.com/apis/visualization/documentation/gallery/areachart.html
   #
   # =USAGE=
   # 
   # In your controller:
   #
-  #   @data = Widgets.all # Must be an array of objects that respond to the specidied data method 
-  #                       # (In this example, 'quantity'
+  #   @data = Widgets.all # Must be an array, and must respond
+  #                       # to the data method specified below (in this example, 'quantity')
   #
   #   @series = @data.map{|w| w.widget_stats} # An array of arrays
   #
@@ -18,7 +18,7 @@ module Seer
   #
   #   <%= visualize(
   #         @data, 
-  #         :as => :line_chart,
+  #         :as => :area_chart,
   #         :in_element => 'chart',
   #         :series => {
   #           :series_label => 'name',
@@ -37,12 +37,12 @@ module Seer
   #        )
   #    -%>
   #
-  class LineChart
+  class AreaChart
   
     include Seer::Chart
     
     # Graph options
-    attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :colors, :data_table, :enable_tooltip, :focus_border_color, :height, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :line_size, :log_scale, :max, :min, :point_size, :reverse_axis, :show_categories, :smooth_line, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :number, :tooltip_width, :width
+    attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :colors, :data_table, :enable_tooltip, :focus_border_color, :height, :is_stacked, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :line_size, :log_scale, :max, :min, :point_size, :reverse_axis, :show_categories, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :number, :tooltip_width, :width
     
     # Graph data
     attr_accessor :series_label, :data_label, :data, :data_method, :data_series
@@ -98,7 +98,7 @@ module Seer
 
       %{
         <script type="text/javascript">
-          google.load('visualization', '1', {'packages':['linechart']});
+          google.load('visualization', '1', {'packages':['areachart']});
           google.setOnLoadCallback(drawChart);
           function drawChart() {
             var data = new google.visualization.DataTable();
@@ -107,7 +107,7 @@ module Seer
             var options = {};
 #{options}
             var container = document.getElementById('chart');
-            var chart = new google.visualization.LineChart(container);
+            var chart = new google.visualization.AreaChart(container);
             chart.draw(data, options);
           }
         </script>
@@ -117,7 +117,7 @@ module Seer
     # ====================================== Class Methods =========================================
     
     def self.render(data, args)
-      graph = Seer::LineChart.new(
+      graph = Seer::AreaChart.new(
         :data => data,
         :series_label   => args[:series][:series_label],
         :data_series    => args[:series][:data_series],

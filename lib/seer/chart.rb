@@ -1,9 +1,15 @@
 module Seer
 
-  module Chart
-  
-    DEFAULT_COLORS = ['#919e4b','#bec8be']
+  module Chart #:nodoc:
 
+    attr_accessor :chart_element
+    
+    DEFAULT_COLORS = ['#324F69','#919E4B', '#A34D4D', '#BEC8BE']
+
+    def in_element=(elem)
+      @chart_element = elem
+    end
+    
     def colors=(colors_list)
       raise ArgumentError, "Invalid color option: #{colors_list}" unless colors_list.is_a?(Array) && colors_list.inject([]){|set,color| set << color if Seer.valid_hex_number?(color); set }.size == colors_list.size
       @colors = colors_list

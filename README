@@ -1,13 +1,49 @@
 Seer
 ====
 
-Introduction goes here.
+Seer is a lightweight, semantically rich wrapper for the Google Visualization API. It allows you to easily create a visualization of data in a variety of formats, including area charts, bar charts, column charts, gauges, line charts, and pie charts.
 
+Usage
+=====
+
+Add the following to the head of the page that will display a chart, or add it to your layout file:
+
+  <%= init_visualization -%>
+
+Gather the data you want to visualize in an instance variable in your controller, then use the visualize method to insert the appropriate chart in your view.
 
 Example
 =======
 
-Example goes here.
+In your controller:
+
+  # @data must be an array, and each object in the array must respond to the data method specified
+  # in the visualize call (in this example, 'quantity')
+  @data = Widget.all
+  
+In your view:
+
+  <div id="chart" class="chart"></div>
+
+  <%= visualize(
+        @widgets, 
+        :as => :bar_chart,
+        :in_element => 'chart',
+        :series => {:label => 'name', :data => 'quantity'},
+        :chart_options => {
+          :height => 300,
+          :width => 200 * @widgets.size,
+          :is_3_d => false,
+          :legend => 'none',
+          :colors => "#990000",
+          :title => "Widget Quantities",
+          :title_x => 'Quantity',
+          :title_y => 'Widgets'
+        }
+      )
+   -%>
+
+For examples of additional chart types, refer to the documentation for each of the individual chart objects.
 
 
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+Copyright (c) 2010 Corey Ehmke / SEO Logic, released under the MIT license
