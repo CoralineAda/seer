@@ -1,9 +1,6 @@
 module Seer
 
-  # For details on the chart options, see the Google API docs at 
-  # http://code.google.com/apis/visualization/documentation/gallery/areachart.html
-  #
-  # =USAGE=
+  # =USAGE
   # 
   # In your controller:
   #
@@ -37,6 +34,9 @@ module Seer
   #        )
   #    -%>
   #
+  # For details on the chart options, see the Google API docs at 
+  # http://code.google.com/apis/visualization/documentation/gallery/areachart.html
+  #
   class AreaChart
   
     include Seer::Chart
@@ -47,7 +47,7 @@ module Seer
     # Graph data
     attr_accessor :series_label, :data_label, :data, :data_method, :data_series
     
-    def initialize(args={})
+    def initialize(args={}) #:nodoc:
 
       # Standard options
       args.each{ |method,arg| self.send("#{method}=",arg) if self.respond_to?(method) }
@@ -65,7 +65,7 @@ module Seer
       
     end
   
-    def data_columns
+    def data_columns #:nodoc:
       _data_columns =  "            data.addRows(#{data_series.first.map{|d| d.send(data_label)}.uniq.size});\r"
       _data_columns << "            data.addColumn('string', 'Date');\r"
       data.each do |datum|
@@ -74,7 +74,7 @@ module Seer
       _data_columns
     end
     
-    def data_table=(data)
+    def data_table=(data) #:nodoc:
       _rows = data_series.first.map{|d| d.send(data_label)}.uniq
       _rows.each_with_index do |r,i|
         @data_table << "            data.setCell(#{i}, 0,'#{r}');\r"
@@ -86,15 +86,15 @@ module Seer
       end
     end
 
-    def nonstring_options
+    def nonstring_options #:nodoc:
       [ :axis_font_size, :colors, :enable_tooltip, :height, :legend_font_size, :line_size, :log_scale, :max, :min, :point_size, :reverse_axis, :show_categories, :smooth_line, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width]
     end
     
-    def string_options
+    def string_options #:nodoc:
       [ :axis_color, :axis_background_color, :background_color, :border_color, :focus_border_color, :legend, :legend_background_color, :legend_text_color, :title, :title_x, :title_y, :title_color ]
     end
     
-    def to_js(data)
+    def to_js(data) #:nodoc:
 
       %{
         <script type="text/javascript">
@@ -116,7 +116,7 @@ module Seer
       
     # ====================================== Class Methods =========================================
     
-    def self.render(data, args)
+    def self.render(data, args) #:nodoc:
       graph = Seer::AreaChart.new(
         :data => data,
         :series_label   => args[:series][:series_label],

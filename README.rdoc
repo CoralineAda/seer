@@ -1,10 +1,8 @@
-Seer
-====
+=Seer
 
 Seer is a lightweight, semantically rich wrapper for the Google Visualization API. It allows you to easily create a visualization of data in a variety of formats, including area charts, bar charts, column charts, gauges, line charts, and pie charts.
 
-Usage
-=====
+==Usage
 
 Add the following to the head of the page that will display a chart, or add it to your layout file:
 
@@ -12,8 +10,7 @@ Add the following to the head of the page that will display a chart, or add it t
 
 Gather the data you want to visualize in an instance variable in your controller, then use the visualize method to insert the appropriate chart in your view.
 
-Example
-=======
+== Example
 
 In your controller:
 

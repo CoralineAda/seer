@@ -1,9 +1,6 @@
 module Seer
 
-  # For details on the chart options, see the Google API docs at 
-  # http://code.google.com/apis/visualization/documentation/gallery/columnchart.html
-  #
-  # =USAGE=
+  # =USAGE
   # 
   # In your controller:
   #
@@ -15,27 +12,22 @@ module Seer
   #   <div id="chart" class="chart"></div>
   #
   #   <%= visualize(
-  #         @widgets, 
-  #         :as => :column_chart,
-  #         :in_element => 'chart',
-  #         :series => {:label => 'name', :data => 'quantity'},
-  #         :chart_options => {
-  #           :height   => 300,
-  #           :width    => 300,
-  #           :is_3_d   => true,
-  #           :legend   => 'none',
-  #           :colors   => "[{color:'#990000', darker:'#660000'}]",
-  #           :title    => "Widget Quantities",
-  #           :title_x  => 'Widgets',
-  #           :title_y  => 'Quantities'
+  #         @data, 
+  #         :as => :pie_chart,
+  #         :series => {:series_label => 'name', :data_method => 'quantity'},
+  #         :chart_options => { 
+  #           :height => 300,
+  #           :width => 300,
+  #           :axis_font_size => 11,
+  #           :title => "Widget Quantities",
+  #           :point_size => 5,
+  #           :is_3_d => true
   #         }
-  #       )
+  #        )
   #    -%>
   #   
-  # Colors are treated differently for 2d and 3d graphs. If you set is_3_d to false, set the
-  # graph color like this:
-  #
-  #           :colors   => "#990000"
+  # For details on the chart options, see the Google API docs at 
+  # http://code.google.com/apis/visualization/documentation/gallery/piechart.html
   #
   class PieChart
   
@@ -47,7 +39,7 @@ module Seer
     # Graph data
     attr_accessor :label_method, :data_method
     
-    def initialize(args={})
+    def initialize(args={}) #:nodoc:
 
       # Standard options
       args.each{ |method,arg| self.send("#{method}=",arg) if self.respond_to?(method) }
@@ -66,7 +58,7 @@ module Seer
       
     end
   
-    def data_table=(data)
+    def data_table=(data) #:nodoc:
       data.each_with_index do |datum, column|
         @data_table << [
           "            data.setValue(#{column}, 0,'#{datum.send(label_method)}');\r",
@@ -75,19 +67,19 @@ module Seer
       end
     end
 
-    def is_3_d
+    def is_3_d #:nodoc:
       @is_3_d.blank? ? false : @is_3_d
     end
     
-    def nonstring_options
+    def nonstring_options #:nodoc:
       [:colors, :enable_tooltip, :height, :is_3_d, :legend_font_size, :pie_join_angle, :pie_minimal_angle, :title_font_size, :tooltip_font_size, :tooltip_width, :width]
     end
     
-    def string_options
+    def string_options #:nodoc:
       [:background_color, :border_color, :focus_border_color, :legend, :legend_background_color, :legend_text_color, :title, :title_color]
     end
     
-    def to_js
+    def to_js #:nodoc:
 
       %{
         <script type="text/javascript">
@@ -107,7 +99,7 @@ module Seer
       }
     end
       
-    def self.render(data, args)
+    def self.render(data, args) #:nodoc:
       graph = Seer::PieChart.new(
         :label_method   => args[:series][:series_label],
         :data_method    => args[:series][:data_method],

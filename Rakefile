@@ -1,23 +1,14 @@
+require 'rubygems'
 require 'rake'
-require 'rake/testtask'
-require 'rake/rdoctask'
+require 'echoe'
 
-desc 'Default: run unit tests.'
-task :default => :test
-
-desc 'Test the seer plugin.'
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+Echoe.new('seer', '0.5.0') do |p|
+  p.description     = "A lightweight, semantically rich wrapper for the Google Visualization API."
+  p.url             = "http://github.com/Bantik/seer"
+  p.author          = "Corey Ehmke / SEO Logic"
+  p.email           = "corey@seologic.com"
+  p.ignore_pattern  = ["tmp/*","script/*"]
+  p.development_dependencies = []
 end
+Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
 
-desc 'Generate documentation for the seer plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = 'Seer'
-  rdoc.options << '--line-numbers' << '--inline-source'
-  rdoc.rdoc_files.include('README')
-  rdoc.rdoc_files.include('lib/**/*.rb')
-end

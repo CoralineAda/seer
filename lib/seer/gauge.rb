@@ -1,9 +1,6 @@
 module Seer
 
-  # For details on the chart options, see the Google API docs at 
-  # http://code.google.com/apis/visualization/documentation/gallery/gauge.html
-  #
-  # =USAGE=
+  # =USAGE
   # 
   # In your controller:
   #
@@ -34,7 +31,10 @@ module Seer
   #         }
   #       )
   #    -%>
-  
+  #
+  # For details on the chart options, see the Google API docs at 
+  # http://code.google.com/apis/visualization/documentation/gallery/gauge.html
+  #
   class Gauge
   
     include Seer::Chart
@@ -45,7 +45,7 @@ module Seer
     # Graph data
     attr_accessor :label_method, :data_method
     
-    def initialize(args={})
+    def initialize(args={})  #:nodoc:
 
       # Standard options
       args.each{ |method,arg| self.send("#{method}=",arg) if self.respond_to?(method) }
@@ -61,7 +61,7 @@ module Seer
       
     end
   
-    def data_table=(data)
+    def data_table=(data)  #:nodoc:
       data.each_with_index do |datum, column|
         @data_table << [
           "            data.setValue(#{column}, 0,'#{datum.send(label_method)}');\r",
@@ -70,19 +70,19 @@ module Seer
       end
     end
 
-    def is_3_d
+    def is_3_d  #:nodoc:
       @is_3_d.blank? ? false : @is_3_d
     end
     
-    def nonstring_options
+    def nonstring_options  #:nodoc:
       [:green_from, :green_to, :height, :major_ticks, :max, :min, :minor_ticks, :red_from, :red_to, :width, :yellow_from, :yellow_to]
     end
     
-    def string_options
+    def string_options  #:nodoc:
       []
     end
     
-    def to_js
+    def to_js  #:nodoc:
 
       %{
         <script type="text/javascript">
@@ -102,7 +102,7 @@ module Seer
       }
     end
       
-    def self.render(data, args)
+    def self.render(data, args)  #:nodoc:
       graph = Seer::Gauge.new(
         :label_method   => args[:series][:label],
         :data_method    => args[:series][:data],
