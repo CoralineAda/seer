@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "seer"
     gem.summary = %Q{Seer is a lightweight, semantically rich wrapper for the Google Visualization API.}
-    gem.description = %Q{ It allows you to easily create a visualization of data in a variety of formats, including area charts, bar charts, column charts, gauges, line charts, and pie charts.}
+    gem.description = %Q{ Seer is a lightweight, semantically rich wrapper for the Google Visualization API. It allows you to easily create a visualization of data in a variety of formats, including area charts, bar charts, column charts, gauges, line charts, and pie charts.}
     gem.email = "corey@seologic.com"
     gem.homepage = "http://github.com/Bantik/seer"
     gem.authors = ["Corey Ehmke / SEO Logic"]
