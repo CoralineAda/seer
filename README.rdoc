@@ -44,13 +44,12 @@ In your view:
 
 For examples of additional chart types, refer to the documentation for each of the individual chart objects, or see the blog post announcing Seer at:
 
-  http://www.idolhands.com/ruby-on-rails/gems-plugins-and-engines/graphing-for-ruby-on-rails-with-seer
+{Simple, Semantic Graphing for Ruby on Rails with Seer}[http://www.idolhands.com/ruby-on-rails/gems-plugins-and-engines/graphing-for-ruby-on-rails-with-seer]
 
 Seer is developed and maintained by Corey Ehmke at SEO Logic.
 
-  Corey Ehmke's blog: http://www.idolhands.com/
-
-  SEO Logic: http://www.seologic.com/
+{Corey Ehmke's blog}[http://www.idolhands.com/]
+{SEO Logic}[http://www.seologic.com/
 
 
 Copyright (c) 2010 Corey Ehmke / SEO Logic, released under the MIT license
