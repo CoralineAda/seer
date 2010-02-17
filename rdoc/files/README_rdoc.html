@@ -56,7 +56,7 @@
     </tr>
     <tr class="top-aligned-row">
       <td><strong>Last Update:</strong></td>
-      <td>Mon Feb 15 22:33:25 -0600 2010</td>
+      <td>Tue Feb 16 14:10:55 -0600 2010</td>
     </tr>
     </table>
   </div>
@@ -82,7 +82,7 @@ Add the following to the head of the page that will display a chart, or add
 it to your layout file:
 </p>
 <pre>
-  &lt;%= init_visualization -%&gt;
+  &lt;%= Seer::init_visualization -%&gt;
 </pre>
 <p>
 Gather the data you want to visualize in an instance variable in your
@@ -104,17 +104,17 @@ In your view:
 <pre>
   &lt;div id=&quot;chart&quot; class=&quot;chart&quot;&gt;&lt;/div&gt;
 
-  &lt;%= visualize(
+  &lt;%= Seer::visualize(
         @widgets,
         :as =&gt; :bar_chart,
         :in_element =&gt; 'chart',
-        :series =&gt; {:label =&gt; 'name', :data =&gt; 'quantity'},
+        :series =&gt; {:series_label =&gt; 'name', :data_method =&gt; 'quantity'},
         :chart_options =&gt; {
           :height =&gt; 300,
           :width =&gt; 200 * @widgets.size,
           :is_3_d =&gt; false,
           :legend =&gt; 'none',
-          :colors =&gt; &quot;#990000&quot;,
+          :colors =&gt; [&quot;#990000&quot;],
           :title =&gt; &quot;Widget Quantities&quot;,
           :title_x =&gt; 'Quantity',
           :title_y =&gt; 'Widgets'

@@ -93,17 +93,17 @@ In your view:
 <pre>
   &lt;div id=&quot;chart&quot; class=&quot;chart&quot;&gt;&lt;/div&gt;
 
-  &lt;%= visualize(
+  &lt;%= Seer::visualize(
         @widgets,
         :as =&gt; :bar_chart,
         :in_element =&gt; 'chart',
-        :series =&gt; {:label =&gt; 'name', :data =&gt; 'quantity'},
+        :series =&gt; {:series_label =&gt; 'name', :data_method =&gt; 'quantity'},
         :chart_options =&gt; {
           :height =&gt; 300,
           :width =&gt; 200 * @widgets.size,
           :is_3_d =&gt; false,
           :legend =&gt; 'none',
-          :colors =&gt; &quot;#990000&quot;,
+          :colors =&gt; [&quot;#990000&quot;],
           :title =&gt; &quot;Widget Quantities&quot;,
           :title_x =&gt; 'Quantity',
           :title_y =&gt; 'Widgets'
@@ -193,10 +193,10 @@ Chart options accessors
 </td>
         </tr>
         <tr class="top-aligned-row context-row">
-          <td class="context-item-name">colors</td>
+          <td class="context-item-name">data</td>
           <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
           <td class="context-item-desc">
-Chart options accessors
+Graph data
 
 </td>
         </tr>

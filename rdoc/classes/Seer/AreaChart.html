@@ -95,7 +95,7 @@ In your view:
 <pre>
   &lt;div id=&quot;chart&quot; class=&quot;chart&quot;&gt;&lt;/div&gt;
 
-  &lt;%= visualize(
+  &lt;%= Seer::visualize(
         @data,
         :as =&gt; :area_chart,
         :in_element =&gt; 'chart',
@@ -184,14 +184,6 @@ Graph options
         </tr>
         <tr class="top-aligned-row context-row">
           <td class="context-item-name">border_color</td>
-          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
-          <td class="context-item-desc">
-Graph options
-
-</td>
-        </tr>
-        <tr class="top-aligned-row context-row">
-          <td class="context-item-name">colors</td>
           <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
           <td class="context-item-desc">
 Graph options

@@ -83,10 +83,6 @@
                 lib/seer/pie_chart.rb
                 </a>
         <br />
-                <a href="../files/lib/seer/visualization_helper_rb.html">
-                lib/seer/visualization_helper.rb
-                </a>
-        <br />
                 <a href="../files/lib/seer_rb.html">
                 lib/seer.rb
                 </a>
@@ -108,6 +104,14 @@
 
    </div>
 
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000001">init_visualization</a>&nbsp;&nbsp;
+      <a href="#M000002">visualize</a>&nbsp;&nbsp;
+      </div>
+    </div>
 
   </div>
 
@@ -128,6 +132,19 @@ Class <a href="Seer/PieChart.html" class="link">Seer::PieChart</a><br />
 
     </div>
 
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VISUALIZERS</td>
+          <td>=</td>
+          <td class="context-item-value">[:area_chart, :bar_chart, :column_chart, :gauge, :line_chart, :pie_chart]</td>
+        </tr>
+        </table>
+      </div>
+    </div>
 
 
 
@@ -135,6 +152,59 @@ Class <a href="Seer/PieChart.html" class="link">Seer::PieChart</a><br />
 
 
     <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000001" class="method-detail">
+        <a name="M000001"></a>
+
+        <div class="method-heading">
+          <a href="#M000001" class="method-signature">
+          <span class="method-name">init_visualization</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000001-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000001-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/seer.rb, line 22</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">init_visualization</span>
+    <span class="ruby-value str">%{&lt;script type=&quot;text/javascript&quot; src=&quot;http://www.google.com/jsapi&quot;&gt;&lt;/script&gt;      }</span>
+  <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000002" class="method-detail">
+        <a name="M000002"></a>
+
+        <div class="method-heading">
+          <a href="#M000002" class="method-signature">
+          <span class="method-name">visualize</span><span class="method-args">(data, args={})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000002-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000002-source">
+<pre>
+<span class="ruby-comment cmt"># File lib/seer.rb, line 26</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">visualize</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">args</span>={})
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Seer: Invalid visualizer: #{args[:as]}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">args</span>[<span class="ruby-identifier">:as</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">VISUALIZERS</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">args</span>[<span class="ruby-identifier">:as</span>])
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Seer: No data provided!&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">args</span>[<span class="ruby-identifier">:as</span>], <span class="ruby-identifier">data</span>, <span class="ruby-identifier">args</span>)
+  <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
 
 
   </div>

@@ -93,11 +93,11 @@ In your view:
 <pre>
   &lt;div id=&quot;chart&quot; class=&quot;chart&quot;&gt;&lt;/div&gt;
 
-  &lt;%= visualize(
+  &lt;%= Seer::visualize(
         @data,
         :as =&gt; :gauge,
         :in_element =&gt; 'chart',
-        :series =&gt; {:label =&gt; 'name', :data =&gt; 'quantity'},
+        :series =&gt; {:series_label =&gt; 'name', :data_method =&gt; 'quantity'},
         :chart_options =&gt; {
           :green_from =&gt; 0,
           :green_to =&gt; 50,
@@ -149,6 +149,14 @@ href="http://code.google.com/apis/visualization/documentation/gallery/gauge.html
       <div class="name-list">
         <table>
         <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+Graph data
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
           <td class="context-item-name">data_method</td>
           <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
           <td class="context-item-desc">
@@ -160,7 +168,7 @@ Graph data
           <td class="context-item-name">data_table</td>
           <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
           <td class="context-item-desc">
-Chart options accessors
+Graph data
 
 </td>
         </tr>

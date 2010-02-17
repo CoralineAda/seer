@@ -93,7 +93,7 @@ In your view:
 <pre>
   &lt;div id=&quot;chart&quot; class=&quot;chart&quot;&gt;&lt;/div&gt;
 
-  &lt;%= visualize(
+  &lt;%= Seer::visualize(
         @data,
         :as =&gt; :pie_chart,
         :series =&gt; {:series_label =&gt; 'name', :data_method =&gt; 'quantity'},
@@ -159,10 +159,10 @@ Chart options accessors
 </td>
         </tr>
         <tr class="top-aligned-row context-row">
-          <td class="context-item-name">colors</td>
+          <td class="context-item-name">data</td>
           <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
           <td class="context-item-desc">
-Chart options accessors
+Graph data
 
 </td>
         </tr>
@@ -178,7 +178,7 @@ Graph data
           <td class="context-item-name">data_table</td>
           <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
           <td class="context-item-desc">
-Chart options accessors
+Graph data
 
 </td>
         </tr>
