@@ -113,7 +113,7 @@ module Seer
         :label_method   => args[:series][:series_label],
         :data_method    => args[:series][:data_method],
         :chart_options  => args[:chart_options],
-        :chart_element  => args[:in_element],
+        :chart_element  => args[:in_element] || 'chart',
         :data           => data
       )
       graph.to_js
