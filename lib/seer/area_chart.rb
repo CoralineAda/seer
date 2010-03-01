@@ -11,7 +11,7 @@ module Seer
   #
   # In your view:
   #
-  #   <div id="chart" class="chart"></div>
+  #   <div id="chart"></div>
   #
   #   <%= Seer::visualize(
   #         @data, 
@@ -66,7 +66,7 @@ module Seer
     end
   
     def data_columns #:nodoc:
-      _data_columns =  "            data.addRows(#{data_series.first.map{|d| d.send(data_label)}.uniq.size});\r"
+      _data_columns =  "            data.addRows(#{data_rows.size});\r"
       _data_columns << "            data.addColumn('string', 'Date');\r"
       data.each do |datum|
         _data_columns << "            data.addColumn('number', '#{datum.send(series_label)}');\r"
@@ -75,20 +75,26 @@ module Seer
     end
     
     def data_table #:nodoc:
-      _rows = data_series.first.map{|d| d.send(data_label)}.uniq
+      _rows = data_rows
       _rows.each_with_index do |r,i|
         @data_table << "            data.setCell(#{i}, 0,'#{r}');\r"
       end
       data_series.each_with_index do |column,i|
         column.each_with_index do |c,j|
-          @data_table << "data.setCell(#{j},#{i+1},#{c.send(data_method)});\r"
+          @data_table << "            data.setCell(#{j},#{i+1},#{c.send(data_method)});\r"
         end
       end
       @data_table
     end
+    
+    def data_rows
+      data_series.inject([]) do |rows, element|
+        rows |= element.map { |e| e.send(data_label) }
+      end
+    end
 
     def nonstring_options #:nodoc:
-      [ :axis_font_size, :colors, :enable_tooltip, :height, :legend_font_size, :line_size, :log_scale, :max, :min, :point_size, :reverse_axis, :show_categories, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width]
+      [ :axis_font_size, :colors, :enable_tooltip, :height, :is_stacked, :legend_font_size, :line_size, :log_scale, :max, :min, :point_size, :reverse_axis, :show_categories, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width]
     end
     
     def string_options #:nodoc:
@@ -107,7 +113,7 @@ module Seer
 #{data_table.to_s}
             var options = {};
 #{options}
-            var container = document.getElementById('chart');
+            var container = document.getElementById('#{self.chart_element}');
             var chart = new google.visualization.AreaChart(container);
             chart.draw(data, options);
           }

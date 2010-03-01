@@ -46,8 +46,7 @@ describe "Seer::Chart" do
   end
   
   it 'sets its data columns' do
-    @chart.data_columns.should =~ /addRows\(3\)/
-    @chart.data_columns.should =~ /addColumn\('string', 'Date'\)/
+    @chart.data_columns.should =~ /addRows\(5\)/
     @chart.data_columns.should =~ /addColumn\('string', 'Date'\)/
     @chart.data_columns.should =~ /addColumn\('number', '0'\)/
     @chart.data_columns.should =~ /addColumn\('number', '1'\)/
@@ -56,7 +55,7 @@ describe "Seer::Chart" do
   end
   
   it 'sets its options' do
-    puts @chart.options.should =~ /options\['titleX'\] = 'Something'/
+    @chart.options.should =~ /options\['titleX'\] = 'Something'/
   end
   
   

@@ -68,8 +68,8 @@ describe "Seer" do
         :as => :bar_chart,
         :in_element => 'chart',
         :series => {
-          :label => 'to_s',
-          :data => 'size'
+          :series_label => 'to_s',
+          :data_method => 'size'
         },
         :chart_options => {}
       ) =~ /barchart/).should be_true
@@ -81,8 +81,8 @@ describe "Seer" do
         :as => :column_chart,
         :in_element => 'chart',
         :series => {
-          :label => 'to_s',
-          :data => 'size'
+          :series_label => 'to_s',
+          :data_method => 'size'
         },
         :chart_options => {}
       ) =~ /columnchart/).should be_true
@@ -94,8 +94,8 @@ describe "Seer" do
         :as => :gauge,
         :in_element => 'chart',
         :series => {
-          :label => 'to_s',
-          :data => 'size'
+          :series_label => 'to_s',
+          :data_method => 'size'
         },
         :chart_options => {}
       ) =~ /gauge/).should be_true

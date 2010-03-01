@@ -41,14 +41,16 @@ module Seer
     def options
       _options = ""
       nonstring_options.each do |opt|
+        next unless self.send(opt)
         if opt == :colors
-          _options << "            options['#{opt.to_s.camelize(:lower)}'] = #{self.send(:formatted_colors)};\r" if self.send(opt)
+          _options << "            options['#{opt.to_s.camelize(:lower)}'] = #{self.send(:formatted_colors)};\r"
         else
-          _options << "            options['#{opt.to_s.camelize(:lower)}'] = #{self.send(opt)};\r" if self.send(opt)
+          _options << "            options['#{opt.to_s.camelize(:lower)}'] = #{self.send(opt)};\r"
         end
       end
       string_options.each do |opt|
-        _options << "            options['#{opt.to_s.camelize(:lower)}'] = '#{self.send(opt)}';\r" if self.send(opt)
+        next unless self.send(opt)
+        _options << "            options['#{opt.to_s.camelize(:lower)}'] = '#{self.send(opt)}';\r"
       end
       _options
     end

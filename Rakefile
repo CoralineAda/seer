@@ -12,6 +12,7 @@ begin
     gem.authors = ["Corey Ehmke / SEO Logic"]
     gem.add_development_dependency "rspec", ">= 1.2.9"
     gem.files = [
+       "CONTRIBUTORS",
        "init.rb",
        "lib/seer.rb",
        "lib/seer/area_chart.rb",

@@ -9,7 +9,7 @@ module Seer
   #
   # In your view:
   #
-  #   <div id="chart" class="chart"></div>
+  #   <div id="chart"></div>
   #
   #   <%= Seer::visualize(
   #         @data, 
@@ -92,7 +92,7 @@ module Seer
 #{data_table.to_s}
             var options = {};
 #{options}
-            var container = document.getElementById('chart');
+            var container = document.getElementById('#{self.chart_element}');
             var chart = new google.visualization.PieChart(container);
             chart.draw(data, options);
           }
