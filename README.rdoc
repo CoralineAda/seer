@@ -44,7 +44,7 @@ In your view:
 
 For examples of additional chart types, refer to the documentation for each of the individual chart objects, or see the blog post announcing Seer: {Simple, Semantic Graphing for Ruby on Rails with Seer}[http://www.idolhands.com/ruby-on-rails/gems-plugins-and-engines/graphing-for-ruby-on-rails-with-seer]
 
-You can also download a sample project that demonstrates each of the chart types: [http://github.com/Bantik/seer_samples]
+A {sample project}[http://github.com/Bantik/seer_samples] that demonstrates each of the chart types is available on GitHub.
 
 Seer is developed and maintained by {Corey Ehmke}[http://www.idolhands.com/] at {SEO Logic}[http://www.seologic.com/].
 
