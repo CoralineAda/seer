@@ -20,7 +20,13 @@ module Seer
   end
 
   def self.init_visualization
-    %{<script type="text/javascript" src="http://www.google.com/jsapi"></script>      }
+    %{<script type="text/javascript">
+      (function() {
+        var jsapi = document.createElement('script');
+        jsapi.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'www.google.com/jsapi';
+        document.documentElement.firstChild.appendChild(jsapi);
+      })();
+    </script>}
   end
   
   def self.visualize(data, args={})
