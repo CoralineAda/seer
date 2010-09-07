@@ -5,10 +5,11 @@ module Seer
   require 'seer/bar_chart'
   require 'seer/column_chart'
   require 'seer/gauge'
+  require 'seer/geomap'
   require 'seer/line_chart'
   require 'seer/pie_chart'
   
-  VISUALIZERS = [:area_chart, :bar_chart, :column_chart, :gauge, :line_chart, :pie_chart]
+  VISUALIZERS = [:area_chart, :bar_chart, :column_chart, :gauge, :geomap, :line_chart, :pie_chart]
   
   def self.valid_hex_number?(val) #:nodoc:
     return false unless val.is_a?(String) && ! val.empty?
