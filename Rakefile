@@ -20,6 +20,7 @@ begin
        "lib/seer/chart.rb",
        "lib/seer/column_chart.rb",
        "lib/seer/gauge.rb",
+       "lib/seer/geomap.rb",
        "lib/seer/line_chart.rb",
        "lib/seer/pie_chart.rb",
        "lib/seer/visualization_helper.rb",
