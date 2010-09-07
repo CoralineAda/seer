@@ -53,6 +53,10 @@ module Seer
     Gauge.render(data, args)
   end
 
+  def self.geomap(data, args)
+    Geomap.render(data, args)
+  end
+
   def self.line_chart(data, args)
     LineChart.render(data, args)
   end
