@@ -79,11 +79,11 @@ module Seer
     def data_table  #:nodoc:
       _rows = data_rows
       _rows.each_with_index do |r,i|
-        @data_table << "            data.setCell(#{i}, 0,'#{r}');\r"
+        @data_table << "            data.setCell(#{i}, 0,'#{r}');"
       end
       data_series.each_with_index do |column,i|
         column.each_with_index do |c,j|
-          @data_table << "data.setCell(#{j},#{i+1},#{c.send(data_method)});\r"
+          @data_table << "data.setCell(#{j},#{i+1},#{c.send(data_method)});"
         end
       end
       @data_table
@@ -112,7 +112,7 @@ module Seer
           function drawChart() {
             var data = new google.visualization.DataTable();
 #{data_columns}
-#{data_table.to_s}
+#{data_table.join("\r")}
             var options = {};
 #{options}
             var container = document.getElementById('#{self.chart_element}');
