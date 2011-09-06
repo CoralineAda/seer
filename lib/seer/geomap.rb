@@ -90,8 +90,7 @@ module Seer
 
     def data_table #:nodoc:
       @data_table = []
-      data.each_with_index do |datum, column|
-        next unless datum.geocoded?
+      data.select{ |d| d.geocoded? }.each_with_index do |datum, column|
         if data_mode == "markers"
           @data_table << [
             "            data.setValue(#{column}, 0, #{datum.latitude});\r",
