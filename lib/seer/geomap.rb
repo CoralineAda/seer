@@ -11,13 +11,13 @@ module Seer
   #   <div id="my_geomap_container" class="chart"></div>
   #
   #   <%= Seer::visualize(
-  #         @widgets,
+  #         @locations,
   #         :as => :geomap,
   #         :in_element => 'my_geomap_container',
   #         :series => {
   #           :series_label => 'name',
   #           :data_label => '# widgets',
-  #           :data_method => 'quantity'
+  #           :data_method => 'widget_count'
   #         },
   #         :chart_options => {
   #           :data_mode => 'regions',
@@ -26,7 +26,7 @@ module Seer
   #       )
   #   -%>
   #
-  # ==@widgets==
+  # ==@locations==
   #
   # A collection of objects (ActiveRecord or otherwise) that must respond to the
   # following methods:
@@ -130,7 +130,7 @@ module Seer
           function drawChart() {
             var data = new google.visualization.DataTable();
 #{data_columns}
-#{data_table.to_s}
+#{data_table.join("\r")}
             var options = {};
 #{options}
             var container = document.getElementById('#{self.chart_element}');

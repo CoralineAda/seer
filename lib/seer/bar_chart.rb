@@ -42,7 +42,7 @@ module Seer
     include Seer::Chart
     
     # Chart options accessors
-    attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :data_table, :enable_tooltip, :focus_border_color, :height, :is_3_d, :is_stacked, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :log_scale, :max, :min, :reverse_axis, :show_categories, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width
+    attr_accessor :axis_color, :axis_background_color, :axis_font_size, :background_color, :border_color, :data_table, :enable_tooltip, :focus_border_color, :font_size, :height, :is_3_d, :is_stacked, :legend, :legend_background_color, :legend_font_size, :legend_text_color, :log_scale, :max, :min, :reverse_axis, :show_categories, :title, :title_x, :title_y, :title_color, :title_font_size, :tooltip_font_size, :tooltip_height, :tooltip_width, :width
     
     # Graph data
     attr_accessor :data, :data_method, :label_method
@@ -97,7 +97,7 @@ module Seer
           function drawChart() {
             var data = new google.visualization.DataTable();
 #{data_columns}
-#{data_table.to_s}
+#{data_table.join("\r")}
             var options = {};
 #{options}
             var container = document.getElementById('#{self.chart_element}');
